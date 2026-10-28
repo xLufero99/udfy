@@ -1,1 +1,4 @@
+co/edu/udistrital/udfy/exception/GlobalExceptionHandlerUnitTest.class
 co/edu/udistrital/udfy/UdfyApplicationTests.class
+co/edu/udistrital/udfy/util/YoutubeIdExtractorTest.class
+co/edu/udistrital/udfy/service/CancionServiceUnitTest.class

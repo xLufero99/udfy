@@ -1,1 +1,4 @@
 /home/lufero/Documentos/proyectos/udfy/backend/src/test/java/co/edu/udistrital/udfy/UdfyApplicationTests.java
+/home/lufero/Documentos/proyectos/udfy/backend/src/test/java/co/edu/udistrital/udfy/exception/GlobalExceptionHandlerUnitTest.java
+/home/lufero/Documentos/proyectos/udfy/backend/src/test/java/co/edu/udistrital/udfy/service/CancionServiceUnitTest.java
+/home/lufero/Documentos/proyectos/udfy/backend/src/test/java/co/edu/udistrital/udfy/util/YoutubeIdExtractorTest.java

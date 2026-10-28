@@ -36,6 +36,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/health", "/api/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/generos").authenticated()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/generos").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/generos/**").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/artistas", "/api/artistas/**").authenticated()
+                        .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/artistas/me").hasRole("ARTISTA")
+                        .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/artistas/**").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/canciones").hasRole("ARTISTA")
+                        .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/canciones/**").hasRole("ARTISTA")
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/canciones/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt
