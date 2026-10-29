@@ -14,13 +14,15 @@ class GlobalExceptionHandlerUnitTest {
     private final GlobalExceptionHandler handler = new GlobalExceptionHandler();
 
     @Test
-    void sqlState23503Returns409() {
+    void sqlState23503Returns409ConMensajeEnEspanol() {
         SQLException sqlException = new SQLException("fk", "23503");
         DataIntegrityViolationException ex = new DataIntegrityViolationException("constraint", sqlException);
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("/test");
         ResponseEntity<ApiError> response = handler.handleDataIntegrity(ex, request);
         assertEquals(409, response.getStatusCode().value());
+        assertEquals("No se puede completar la operación porque hay registros relacionados",
+                response.getBody().message());
     }
 
     @Test
@@ -73,5 +75,15 @@ class GlobalExceptionHandlerUnitTest {
         ResponseEntity<ApiError> response = handler.handleDataIntegrity(ex, request);
         assertEquals(400, response.getStatusCode().value());
         assertEquals("Valor de texto demasiado largo", response.getBody().message());
+    }
+
+    @Test
+    void sqlState42501Returns403() {
+        SQLException sqlException = new SQLException("permission denied", "42501");
+        DataIntegrityViolationException ex = new DataIntegrityViolationException("constraint", sqlException);
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getRequestURI()).thenReturn("/test");
+        ResponseEntity<ApiError> response = handler.handleDataIntegrity(ex, request);
+        assertEquals(403, response.getStatusCode().value());
     }
 }

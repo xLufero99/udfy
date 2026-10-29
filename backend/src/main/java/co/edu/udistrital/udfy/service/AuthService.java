@@ -12,8 +12,9 @@ import co.edu.udistrital.udfy.repository.ArtistaRepository;
 import co.edu.udistrital.udfy.repository.CuentaRepository;
 import co.edu.udistrital.udfy.repository.UsuarioRepository;
 import co.edu.udistrital.udfy.security.jwt.JwtService;
+import co.edu.udistrital.udfy.security.util.PasswordEncoderUtil;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,13 +24,14 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final ArtistaRepository artistaRepository;
     private final JwtService jwtService;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthService(CuentaRepository cuentaRepository, UsuarioRepository usuarioRepository, ArtistaRepository artistaRepository, JwtService jwtService) {
+    public AuthService(CuentaRepository cuentaRepository, UsuarioRepository usuarioRepository, ArtistaRepository artistaRepository, JwtService jwtService, PasswordEncoderUtil passwordEncoderUtil) {
         this.cuentaRepository = cuentaRepository;
         this.usuarioRepository = usuarioRepository;
         this.artistaRepository = artistaRepository;
         this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoderUtil.getPasswordEncoder();
     }
 
     public LoginResponse login(LoginRequest request) {

@@ -47,6 +47,8 @@ public class SecurityConfig {
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/reproducciones").hasRole("OYENTE")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/reproducciones/me").hasRole("OYENTE")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/recomendaciones/me").hasRole("OYENTE")
+                        .requestMatchers("/api/cuentas", "/api/cuentas/**").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/reportes/**").hasAnyRole("ANALISTA", "ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/artistas/**").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/canciones").hasRole("ARTISTA")
                         .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/canciones/**").hasRole("ARTISTA")

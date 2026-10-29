@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
                     return buildError(HttpStatus.CONFLICT, "Duplicate entry", request);
                 }
                 if ("23503".equals(sqlState)) {
-                    return buildError(HttpStatus.CONFLICT, "Reference or dependent record violation", request);
+                    return buildError(HttpStatus.CONFLICT, "No se puede completar la operación porque hay registros relacionados", request);
                 }
                 if ("23514".equals(sqlState)) {
                     return buildError(HttpStatus.BAD_REQUEST, "Check constraint violation", request);
