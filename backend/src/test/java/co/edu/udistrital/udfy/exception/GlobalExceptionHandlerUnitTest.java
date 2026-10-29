@@ -52,4 +52,26 @@ class GlobalExceptionHandlerUnitTest {
         ResponseEntity<ApiError> response = handler.handleDataIntegrity(ex, request);
         assertEquals(400, response.getStatusCode().value());
     }
+
+    @Test
+    void sqlState22003Returns400ConMensajeEnEspanol() {
+        SQLException sqlException = new SQLException("out of range", "22003");
+        DataIntegrityViolationException ex = new DataIntegrityViolationException("constraint", sqlException);
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getRequestURI()).thenReturn("/test");
+        ResponseEntity<ApiError> response = handler.handleDataIntegrity(ex, request);
+        assertEquals(400, response.getStatusCode().value());
+        assertEquals("Valor fuera de rango permitido", response.getBody().message());
+    }
+
+    @Test
+    void sqlState22001Returns400ConMensajeEnEspanol() {
+        SQLException sqlException = new SQLException("truncation", "22001");
+        DataIntegrityViolationException ex = new DataIntegrityViolationException("constraint", sqlException);
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getRequestURI()).thenReturn("/test");
+        ResponseEntity<ApiError> response = handler.handleDataIntegrity(ex, request);
+        assertEquals(400, response.getStatusCode().value());
+        assertEquals("Valor de texto demasiado largo", response.getBody().message());
+    }
 }

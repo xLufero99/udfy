@@ -44,6 +44,12 @@ public class GlobalExceptionHandler {
                 if ("P0001".equals(sqlState)) {
                     return buildError(HttpStatus.BAD_REQUEST, "Trigger violation", request);
                 }
+                if ("22003".equals(sqlState)) {
+                    return buildError(HttpStatus.BAD_REQUEST, "Valor fuera de rango permitido", request);
+                }
+                if ("22001".equals(sqlState)) {
+                    return buildError(HttpStatus.BAD_REQUEST, "Valor de texto demasiado largo", request);
+                }
                 if ("42501".equals(sqlState)) {
                     return buildError(HttpStatus.FORBIDDEN, "Insufficient privileges", request);
                 }

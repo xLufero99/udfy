@@ -1,4 +1,14 @@
-co/edu/udistrital/udfy/exception/GlobalExceptionHandlerUnitTest.class
-co/edu/udistrital/udfy/UdfyApplicationTests.class
+co/edu/udistrital/udfy/controller/UsuarioControllerUnitTest.class
+co/edu/udistrital/udfy/repository/TopCancionJdbcRepositoryUnitTest.class
 co/edu/udistrital/udfy/util/YoutubeIdExtractorTest.class
 co/edu/udistrital/udfy/service/CancionServiceUnitTest.class
+co/edu/udistrital/udfy/exception/GlobalExceptionHandlerUnitTest.class
+co/edu/udistrital/udfy/service/UsuarioServiceUnitTest.class
+co/edu/udistrital/udfy/controller/ArtistaControllerUnitTest.class
+co/edu/udistrital/udfy/controller/ReproduccionControllerUnitTest.class
+co/edu/udistrital/udfy/service/RecomendacionServiceUnitTest.class
+co/edu/udistrital/udfy/UdfyApplicationTests.class
+co/edu/udistrital/udfy/controller/RecomendacionControllerUnitTest.class
+co/edu/udistrital/udfy/service/ReproduccionServiceUnitTest.class
+co/edu/udistrital/udfy/service/TopCancionServiceUnitTest.class
+co/edu/udistrital/udfy/repository/RecomendacionJdbcRepositoryUnitTest.class

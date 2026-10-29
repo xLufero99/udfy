@@ -1,0 +1,57 @@
+package co.edu.udistrital.udfy.controller;
+
+import co.edu.udistrital.udfy.service.ArtistaService;
+import co.edu.udistrital.udfy.service.TopCancionService;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class ArtistaControllerUnitTest {
+    @Mock
+    private ArtistaService artistaService;
+    @Mock
+    private TopCancionService topCancionService;
+    @InjectMocks
+    private ArtistaController artistaController;
+
+    private Authentication autenticacionConClaim(Object valor) {
+        Jwt jwt = mock(Jwt.class);
+        when(jwt.getClaim("id_artista")).thenReturn(valor);
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getPrincipal()).thenReturn(jwt);
+        return authentication;
+    }
+
+    @Test
+    void topCancionesTomaElIdArtistaDelJwt() {
+        Authentication authentication = autenticacionConClaim(4);
+        when(topCancionService.topCanciones(4L, 10)).thenReturn(List.of());
+
+        ResponseEntity<?> response = artistaController.topCanciones(10, authentication);
+
+        assertEquals(200, response.getStatusCode().value());
+        verify(topCancionService).topCanciones(4L, 10);
+    }
+
+    @Test
+    void topCancionesSinClaimIdArtistaResponde403() {
+        Authentication authentication = autenticacionConClaim(null);
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> artistaController.topCanciones(10, authentication));
+        assertEquals(403, ex.getStatusCode().value());
+    }
+}
